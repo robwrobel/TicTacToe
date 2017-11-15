@@ -28,6 +28,9 @@ public class Game {
     private void start() {
         printWelcomeMessage();
         setPlayersNames();
+        do {
+            new Match().start();
+        } while (true);
     }
 
     private void printWelcomeMessage() {
