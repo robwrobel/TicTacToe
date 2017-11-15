@@ -7,7 +7,7 @@ public class BoardBuilder {
     List<Mark> list;
     BoardDimensions bd;
 
-    BoardBuilder (BoardDimensions bd) {
+    public BoardBuilder (BoardDimensions bd) {
         this.bd = bd;
     }
 
@@ -20,6 +20,6 @@ public class BoardBuilder {
     }
 
     public Board build() {
-        return new Board(list);
+        return new Board(list,bd);
     }
 }

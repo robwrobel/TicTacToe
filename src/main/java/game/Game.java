@@ -13,15 +13,15 @@ public class Game {
     OutputWriter ow = new OutputWriter();
     InputReader ir = new InputReader();
 
-    List<Player> players = new ArrayList();
+    List<Player> players = new ArrayList<>();
     {
         players.add(new Player(Mark.O));
         players.add(new Player(Mark.X));
     }
 
     public static void main(String[] args) {
-        Game game = new Game();
 
+        Game game = new Game();
         game.start();
     }
 
@@ -29,7 +29,7 @@ public class Game {
         printWelcomeMessage();
         setPlayersNames();
         do {
-            new Match().start();
+            new Match(ow,ir,players).start();
         } while (true);
     }
 
