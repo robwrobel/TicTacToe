@@ -42,6 +42,7 @@ public class Game {
         for(Player p: players) {
             System.out.println("Please enter player "+ i + " name:");
             p.setName(ir.getString());
+            i++;
         }
     }
 }

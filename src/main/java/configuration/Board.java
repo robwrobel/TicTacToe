@@ -2,11 +2,12 @@ package configuration;
 
 import game.Move;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
     List<Mark> markList;
-    List<MoveObserver> observerList;
+    List<MoveObserver> observerList = new ArrayList<>();
     BoardDimensions bd;
 
     Board(List<Mark> markList, BoardDimensions bd) {
@@ -14,7 +15,7 @@ public class Board {
         this.bd = bd;
     }
 
-    public void updateMark(Move move) {
+    public void update(Move move) {
         markList.set(move.getId(),move.getMark());
         notifyObservers(move);
     }
@@ -56,6 +57,18 @@ public class Board {
         }
         sb.append(field);
         return sb.toString();
+    }
+
+    public BoardDimensions getBd() {
+        return bd;
+    }
+
+    public int getMaxId() {
+        return bd.columns*bd.rows;
+    }
+
+    public boolean isMarked(int id) {
+        return !markList.get(id).equals(Mark.EMPTY);
     }
 
 }
