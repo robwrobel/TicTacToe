@@ -10,16 +10,17 @@ import inout.OutputWriter;
 import java.util.List;
 
 public class Match {
-    OutputWriter ow;
-    InputReader ir;
-    Arbiter arbiter = new Arbiter();
-    Archive archive = new Archive();
+    private OutputWriter ow;
+    private InputReader ir;
+    private Archive archive;
+    private Arbiter arbiter;
+
 
     private Board board;
-    MoveValidator moveValidator;
+    private MoveValidator moveValidator;
 
     private List<Player> playerList;
-    Tour tour;
+    private Tour tour;
 
     public Match(OutputWriter ow, InputReader ir, List<Player> playerList) {
         this.ow = ow;
@@ -30,14 +31,17 @@ public class Match {
     public void start() {
         whoBegins();
         initializeBoard();
+        initializeArchive();
+        initializeArbiter();
         noForWin();
         do {
             displayBoard();
             keepAskingPlayerForNewMove();
             board.update(tour.move);
+            if (arbiter.isMatchFinished()) break;
             switchPlayer();
         } while (true);
-
+        displayBoard();
     }
 
     private void switchPlayer() {
@@ -68,6 +72,17 @@ public class Match {
         BoardDimensions bd = new BoardDimensions(col,row);
         BoardBuilder bb = new BoardBuilder(bd);
         board = bb.viaArrayList().build();
+
+    }
+
+    private void initializeArchive() {
+        archive = new Archive();
+        board.addObserver(archive);
+    }
+
+    private void initializeArbiter() {
+        arbiter = new Arbiter(archive,board);
+        board.addObserver(arbiter);
     }
 
     private void whoBegins() {
