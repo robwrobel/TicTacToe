@@ -20,7 +20,6 @@ public class Arbiter implements MoveObserver{
     public void update(Move m) {
         checkForVictory(m);
         checkForDraw();
-
     }
 
     private void checkForVictory(Move m) {

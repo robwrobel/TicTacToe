@@ -34,6 +34,7 @@ public class Match {
         initializeBoard();
         initializeArchive();
         initializeArbiter();
+        initializeObservers();
         noForWin();
         do {
             displayBoard();
@@ -42,6 +43,12 @@ public class Match {
             switchPlayer();
         } while (true);
         displayBoard();
+    }
+
+    private void initializeObservers() {
+        moveValidator.addObserver(board);
+        moveValidator.addObserver(archive);
+        moveValidator.addObserver(arbiter);
     }
 
     private void switchPlayer() {
@@ -75,19 +82,17 @@ public class Match {
         BoardDimensions bd = new BoardDimensions(col,row);
         BoardBuilder bb = new BoardBuilder(bd);
         board = bb.viaArrayList().build();
-        moveValidator.addObserver(board);
+
         moveValidator.setBoard(board);
 
     }
 
     private void initializeArchive() {
         archive = new Archive();
-        moveValidator.addObserver(archive);
     }
 
     private void initializeArbiter() {
         arbiter = new Arbiter(archive,board);
-        moveValidator.addObserver(arbiter);
     }
 
     private void whoBegins() {
