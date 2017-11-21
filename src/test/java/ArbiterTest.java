@@ -23,6 +23,7 @@ public class ArbiterTest {
                                 {1, 1, 2, new Move(Mark.O,0), new ArrayList<>(), false},
                                 {3, 3, 2, new Move(Mark.O,0), Arrays.asList(new Move(Mark.O,1)), true},
                                 {3, 3, 3, new Move(Mark.O,0), Arrays.asList(new Move(Mark.O,1)), false},
+                                {3, 3, 3, new Move(Mark.X,2), Arrays.asList(new Move(Mark.O,0), new Move(Mark.X,1), new Move(Mark.O,3)), false },
                                 {10, 10, 3, new Move(Mark.O,1), Arrays.asList(new Move(Mark.O,0), new Move(Mark.O, 2)), true},
                                 {10, 10, 3, new Move(Mark.O,1), Arrays.asList(new Move(Mark.X,0), new Move(Mark.O, 2)), false},
                                 {10, 10, 4, new Move(Mark.O,1), Arrays.asList(new Move(Mark.O,0), new Move(Mark.O, 2)), false},

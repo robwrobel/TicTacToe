@@ -25,6 +25,7 @@ public class Arbiter implements MoveObserver{
     }
 
     private void checkForVictory(Move m) {
+
         checkForWEVictory(m);
     }
 
@@ -43,14 +44,14 @@ public class Arbiter implements MoveObserver{
 
     private int goWest(int id, Mark mark) {
         int colNo = board.getBd().getColumns();
-        int rowNo = board.getBd().getRows();
+
         Integer nextId = ((id > 0) && (id/colNo == (id - 1)/colNo)
                 && (board.getMark(id - 1) == mark)) ? id - 1 : null;
         if (nextId == null) {
             return tmpCounter;
         } else {
             tmpCounter ++;
-            return goEast(nextId,mark);
+            return goWest(nextId,mark);
         }
     }
 
