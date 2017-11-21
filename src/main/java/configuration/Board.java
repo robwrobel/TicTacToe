@@ -60,4 +60,7 @@ public class Board implements MoveObserver{
         return !markList.get(id).equals(Mark.EMPTY);
     }
 
+    public Mark getMark(int id) {
+        return markList.get(id);
+    }
 }

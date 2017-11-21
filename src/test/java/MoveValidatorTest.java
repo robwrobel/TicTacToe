@@ -33,8 +33,7 @@ public class MoveValidatorTest {
     public void isMoveBetweenMinAndMaxId(int inputColumn, int inputRow, Move move, boolean isMoveValid) {
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
-        MoveValidator moveValidator = new MoveValidator();
-        moveValidator.setBoard(board);
+        MoveValidator moveValidator = new MoveValidator(board);
         assertEquals(isMoveValid, moveValidator.isMoveValid(move));
 
     }
@@ -63,8 +62,7 @@ public class MoveValidatorTest {
 
         Board board = new BoardBuilder(boardDimensions).viaArrayList().basedOnArchive(archive).build();
 
-        MoveValidator moveValidator = new MoveValidator();
-        moveValidator.setBoard(board);
+        MoveValidator moveValidator = new MoveValidator(board);
 
         assertEquals(isMoveValid, moveValidator.isMoveValid(move));
 

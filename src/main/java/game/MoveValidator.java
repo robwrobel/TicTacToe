@@ -11,8 +11,8 @@ public class MoveValidator {
 
     List<MoveObserver> observerList = new ArrayList<>();
 
-    public MoveValidator() {
-
+    public MoveValidator(Board board) {
+        this.board = board;
     }
 
     public boolean isMoveValid(Move move) {

@@ -12,10 +12,9 @@ import java.util.List;
 public class Match {
     private OutputWriter ow;
     private InputReader ir;
+
     private Archive archive;
     private Arbiter arbiter;
-
-
     private Board board;
     private MoveValidator moveValidator;
 
@@ -30,8 +29,8 @@ public class Match {
 
     public void start() {
         whoBegins();
-        initializeMoveValidator();
         initializeBoard();
+        initializeMoveValidator();
         initializeArchive();
         initializeArbiter();
         initializeObservers();
@@ -67,10 +66,6 @@ public class Match {
         ow.println("Please enter number of consecutive marks for win");
         arbiter.setNoForWin(ir.getInt());
     }
-    private void initializeMoveValidator() {
-        moveValidator = new MoveValidator();
-
-    }
     private void initializeBoard() {
 
         ow.println("Please enter number of columns");
@@ -83,7 +78,10 @@ public class Match {
         BoardBuilder bb = new BoardBuilder(bd);
         board = bb.viaArrayList().build();
 
-        moveValidator.setBoard(board);
+    }
+
+    private void initializeMoveValidator() {
+        moveValidator = new MoveValidator(board);
 
     }
 
