@@ -30,6 +30,7 @@ public class Match {
 
     public void start() {
         whoBegins();
+        initializeMoveValidator();
         initializeBoard();
         initializeArchive();
         initializeArbiter();
@@ -37,7 +38,6 @@ public class Match {
         do {
             displayBoard();
             keepAskingPlayerForNewMove();
-            board.update(tour.move);
             if (arbiter.isMatchFinished()) break;
             switchPlayer();
         } while (true);
@@ -60,7 +60,10 @@ public class Match {
         ow.println("Please enter number of consecutive marks for win");
         arbiter.setNoForWin(ir.getInt());
     }
+    private void initializeMoveValidator() {
+        moveValidator = new MoveValidator();
 
+    }
     private void initializeBoard() {
 
         ow.println("Please enter number of columns");
@@ -72,17 +75,19 @@ public class Match {
         BoardDimensions bd = new BoardDimensions(col,row);
         BoardBuilder bb = new BoardBuilder(bd);
         board = bb.viaArrayList().build();
+        moveValidator.addObserver(board);
+        moveValidator.setBoard(board);
 
     }
 
     private void initializeArchive() {
         archive = new Archive();
-        board.addObserver(archive);
+        moveValidator.addObserver(archive);
     }
 
     private void initializeArbiter() {
         arbiter = new Arbiter(archive,board);
-        board.addObserver(arbiter);
+        moveValidator.addObserver(arbiter);
     }
 
     private void whoBegins() {
@@ -102,7 +107,6 @@ public class Match {
     private void keepAskingPlayerForNewMove() {
         do {
             askUserForNewMove();
-            moveValidator = new MoveValidator(board);
         } while (!moveValidator.isMoveValid(tour.move));
     }
 

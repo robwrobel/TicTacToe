@@ -30,8 +30,8 @@ public class Arbiter implements MoveObserver{
     private void checkForDraw() {
 
         int noOfFieldsInBoard = board.getBd().getRows()*board.getBd().getColumns();
-
-        if ((archive.getNoOfMoves() == noOfFieldsInBoard) && (victory == false)) {
+        int noOfMovesInArchive = archive.getNoOfMoves();
+        if ((noOfMovesInArchive == noOfFieldsInBoard) && (victory == false)) {
             draw = true;
         }
     }
