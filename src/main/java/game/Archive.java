@@ -17,4 +17,8 @@ public class Archive implements MoveObserver {
     public int getNoOfMoves() {
         return moveList.size();
     }
+
+    public List<Move> getMoveList() {
+        return moveList;
+    }
 }

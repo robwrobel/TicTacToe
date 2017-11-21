@@ -18,6 +18,6 @@ public class MoveValidator {
     }
 
     private boolean isIdBetweenMinAndMaxId(int id) {
-        return id >=0 && id < board.getMaxId();
+        return id >=0 && id <= board.getMaxId();
     }
 }

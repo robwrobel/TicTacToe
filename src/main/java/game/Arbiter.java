@@ -1,7 +1,6 @@
 package game;
 
 import configuration.Board;
-import configuration.BoardDimensions;
 import configuration.MoveObserver;
 
 public class Arbiter implements MoveObserver{
@@ -19,16 +18,16 @@ public class Arbiter implements MoveObserver{
 
     @Override
     public void update(Move m) {
-        checkforVictory(m);
-        checkforDraw();
+        checkForVictory(m);
+        checkForDraw();
 
     }
 
-    private void checkforVictory(Move m) {
+    private void checkForVictory(Move m) {
 
     }
 
-    private void checkforDraw() {
+    private void checkForDraw() {
 
         int noOfFieldsInBoard = board.getBd().getRows()*board.getBd().getColumns();
 

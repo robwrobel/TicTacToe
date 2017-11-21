@@ -45,7 +45,8 @@ public class Board {
             sb.append(System.getProperty("line.separator").toString());
         }
 
-        return sb.toString();    }
+        return sb.toString();
+    }
 
 
     private String toFieldFormat(String field) {
@@ -64,7 +65,7 @@ public class Board {
     }
 
     public int getMaxId() {
-        return bd.columns*bd.rows;
+        return bd.columns*bd.rows - 1;
     }
 
     public boolean isMarked(int id) {
