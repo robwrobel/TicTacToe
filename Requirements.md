@@ -16,6 +16,6 @@ Winning conditions:		|
 Announce win/draw message	|
 Configurable messages target	|
 Add multi language support	|
-
+Add validation for all user input
 
 -

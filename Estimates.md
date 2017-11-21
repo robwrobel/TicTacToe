@@ -8,8 +8,10 @@ day               Optimistic      		        	 Realistic                         
 		Add all UnitTests for win cond		Add Unittests for NS win cond
 		Announce win/draw message		Announce win/draw message	
 ---------------------------------------------------------------------------------------------------------------------
-23.11.2017	Add points for win/draw		
+23.11.2017	Add points for win/draw				
 		Configurable message target
 --------------------------------------------------------------------------------------------------------------------------
 24.11.2017	Add multilanguage support
 		
+-------------------------------------------------------------------------------------------------------------
+25.11.2017      Add validation for all user input
