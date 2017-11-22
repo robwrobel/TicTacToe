@@ -28,6 +28,7 @@ public class Match {
     }
 
     public void start() {
+        boolean isVictory = false;
         whoBegins();
         initializeBoard();
         initializeMoveValidator();
@@ -35,12 +36,16 @@ public class Match {
         initializeArbiter();
         initializeObservers();
         noForWin();
-        do {
+        int maxNoOfMoves = board.getMaxId() + 1;
+        for(int i = 1; i <= maxNoOfMoves;i++) {
             displayBoard();
             keepAskingPlayerForNewMove();
-            if (arbiter.isMatchFinished()) break;
+            if (arbiter.isVictory()) {
+                isVictory = true;
+                break;
+            }
             switchPlayer();
-        } while (true);
+        }
         displayBoard();
     }
 

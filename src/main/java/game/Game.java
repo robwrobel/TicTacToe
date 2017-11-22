@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Game {
 
+    private static final int NO_OF_MATCHES_IN_GAME = 3;
     OutputWriter ow = new OutputWriter();
     InputReader ir = new InputReader();
 
@@ -27,9 +28,9 @@ public class Game {
     private void start() {
         printWelcomeMessage();
         setPlayersNames();
-        do {
+        for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
             new Match(ow,ir,players).start();
-        } while (true);
+        }
     }
 
     private void printWelcomeMessage() {

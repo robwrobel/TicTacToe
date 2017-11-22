@@ -9,7 +9,6 @@ public class Arbiter implements MoveObserver{
     private final Board board;
     private final Archive archive;
     private int noForWin;
-    private boolean draw;
     private boolean victory;
     private int tmpCounter = 0;
 
@@ -21,7 +20,6 @@ public class Arbiter implements MoveObserver{
     @Override
     public void update(Move m) {
         checkForVictory(m);
-        checkForDraw();
     }
 
     private void checkForVictory(Move m) {
@@ -68,25 +66,8 @@ public class Arbiter implements MoveObserver{
         }
     }
 
-    private void checkForDraw() {
-
-        int noOfFieldsInBoard = board.getBd().getRows()*board.getBd().getColumns();
-        int noOfMovesInArchive = archive.getNoOfMoves();
-        if ((noOfMovesInArchive == noOfFieldsInBoard) && (victory == false)) {
-            draw = true;
-        }
-    }
-
     public void setNoForWin(int noForWin) {
         this.noForWin = noForWin;
-    }
-
-    public boolean isMatchFinished() {
-        return (isDraw() || isVictory());
-    }
-
-    public boolean isDraw() {
-        return draw;
     }
 
     public boolean isVictory() {
