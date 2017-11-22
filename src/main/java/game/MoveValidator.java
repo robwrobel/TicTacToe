@@ -33,11 +33,6 @@ public class MoveValidator {
         observerList.add(moveObserver);
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-
     private boolean isIdAlreadyMarked(int id) {
         return board.isMarked(id);
     }

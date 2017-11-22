@@ -17,7 +17,7 @@ public class Match {
     private Arbiter arbiter;
     private Board board;
     private MoveValidator moveValidator;
-
+    private SequenceGenerator sequenceGenerator;
     private List<Player> playerList;
     private Tour tour;
 
@@ -28,20 +28,21 @@ public class Match {
     }
 
     public void start() {
-        boolean isVictory = false;
+
         whoBegins();
         initializeBoard();
         initializeMoveValidator();
         initializeArchive();
         initializeArbiter();
+        initializeSequenceGenerator();
         initializeObservers();
+
         noForWin();
         int maxNoOfMoves = board.getMaxId() + 1;
         for(int i = 1; i <= maxNoOfMoves;i++) {
             displayBoard();
             keepAskingPlayerForNewMove();
             if (arbiter.isVictory()) {
-                isVictory = true;
                 break;
             }
             switchPlayer();
@@ -49,10 +50,14 @@ public class Match {
         displayBoard();
     }
 
+    private void initializeSequenceGenerator() {
+        sequenceGenerator = new SequenceGenerator(board, arbiter);
+    }
+
     private void initializeObservers() {
         moveValidator.addObserver(board);
         moveValidator.addObserver(archive);
-        moveValidator.addObserver(arbiter);
+        moveValidator.addObserver(sequenceGenerator);
     }
 
     private void switchPlayer() {
@@ -95,7 +100,7 @@ public class Match {
     }
 
     private void initializeArbiter() {
-        arbiter = new Arbiter(archive,board);
+        arbiter = new Arbiter();
     }
 
     private void whoBegins() {
