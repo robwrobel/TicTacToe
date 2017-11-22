@@ -17,7 +17,7 @@ public class Match {
     private Arbiter arbiter;
     private Board board;
     private MoveValidator moveValidator;
-    private SequenceGenerator sequenceGenerator;
+    private SequenceGeneratorManager sequenceGeneratorManager;
     private List<Player> playerList;
     private Tour tour;
 
@@ -34,7 +34,7 @@ public class Match {
         initializeMoveValidator();
         initializeArchive();
         initializeArbiter();
-        initializeSequenceGenerator();
+        initializeSequenceGeneratorManager();
         initializeObservers();
 
         noForWin();
@@ -50,14 +50,14 @@ public class Match {
         displayBoard();
     }
 
-    private void initializeSequenceGenerator() {
-        sequenceGenerator = new SequenceGenerator(board, arbiter);
+    private void initializeSequenceGeneratorManager() {
+        sequenceGeneratorManager = new SequenceGeneratorManager(board, arbiter);
     }
 
     private void initializeObservers() {
         moveValidator.addObserver(board);
         moveValidator.addObserver(archive);
-        moveValidator.addObserver(sequenceGenerator);
+        moveValidator.addObserver(sequenceGeneratorManager);
     }
 
     private void switchPlayer() {
