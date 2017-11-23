@@ -12,18 +12,17 @@ import java.util.TreeSet;
 
 import static org.testng.Assert.assertEquals;
 
-public class DiagonalSequenceGeneratorTest {
+public class AntiDiagonalSequenceGeneratorTest {
 
     @DataProvider(name = "BoardSize_Id_NoForWin_ResultSequenceSet")
     public static Object[][] BoardSize_Id_NoForWin_ResultSequenceSet() {
-        return new Object[][]{ {3, 3, 0, 3, new TreeSet<>(Arrays.asList(0, 4, 8))},
-                {3, 3, 2, 3, new TreeSet<>(Arrays.asList(2))},
-                {3, 3, 4, 3, new TreeSet<>(Arrays.asList(0, 4, 8))},
-                {10, 10, 5, 10, new TreeSet<>(Arrays.asList(5, 16, 27, 38, 49))},
-                {10, 10, 0, 10, new TreeSet<>(Arrays.asList(0, 11, 22, 33, 44, 55, 66, 77, 88, 99))},
-                {10, 10, 5, 3, new TreeSet<>(Arrays.asList(5, 16, 27))},
-                {3, 2, 1, 2, new TreeSet<>(Arrays.asList(1,5))},
-                {4, 5, 15, 3, new TreeSet<>(Arrays.asList(5,10,15))}
+        return new Object[][]{ {3, 3, 0, 3, new TreeSet<>(Arrays.asList(0))},
+                {3, 3, 2, 3, new TreeSet<>(Arrays.asList(2, 4, 6))},
+                {3, 3, 4, 3, new TreeSet<>(Arrays.asList(2, 4, 6))},
+                {10, 10, 5, 10, new TreeSet<>(Arrays.asList(5, 14, 23, 32, 41, 50))},
+                {10, 10, 0, 10, new TreeSet<>(Arrays.asList(0))},
+                {10, 10, 5, 3, new TreeSet<>(Arrays.asList(5, 14, 23))},
+                {3, 2, 1, 2, new TreeSet<>(Arrays.asList(1,3))}
 
         };
 
@@ -43,9 +42,9 @@ public class DiagonalSequenceGeneratorTest {
         Arbiter arbiter = new Arbiter();
         arbiter.setNoForWin(noForWin);
         SequenceGeneratorManager sgm = new SequenceGeneratorManager(board, arbiter);
-        SequenceGeneratorManager.DiagonalSequenceGenerator diagonalSequenceGenerator =
-                sgm.new DiagonalSequenceGenerator();
-        Set<Integer> actualIdSet = diagonalSequenceGenerator.findIds(id);
+        SequenceGeneratorManager.AntiDiagonalSequenceGenerator antiDiagonalSequenceGenerator =
+                sgm.new AntiDiagonalSequenceGenerator();
+        Set<Integer> actualIdSet = antiDiagonalSequenceGenerator.findIds(id);
         assertEquals(actualIdSet, expectedResult);
 
     }
