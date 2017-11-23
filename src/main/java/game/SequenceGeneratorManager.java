@@ -3,8 +3,7 @@ package game;
 import configuration.Board;
 import configuration.MoveObserver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SequenceGeneratorManager implements MoveObserver {
     private final Board board;
@@ -13,7 +12,7 @@ public class SequenceGeneratorManager implements MoveObserver {
 
     List<SequenceGenerator> sequenceGeneratorList = new ArrayList<>();
 
-    SequenceGeneratorManager(Board board, Arbiter arbiter) {
+    public SequenceGeneratorManager(Board board, Arbiter arbiter) {
         this.board = board;
         this.arbiter = arbiter;
         sequenceGeneratorList.add(new HorizontalSequenceGenerator());
@@ -33,10 +32,10 @@ public class SequenceGeneratorManager implements MoveObserver {
         return sequenceList;
     }
 
-    private abstract class SequenceGenerator {
+    public abstract class SequenceGenerator {
 
         String generate(int id) {
-            List<Integer> ids = findIds(id);
+            Set<Integer> ids = findIds(id);
             StringBuilder sb = new StringBuilder();
             for (Integer i : ids) {
                 sb.append(board.getMark(i));
@@ -44,15 +43,50 @@ public class SequenceGeneratorManager implements MoveObserver {
             return sb.toString();
         }
 
-        protected abstract List<Integer> findIds(int id);
+        protected abstract Set<Integer> findIds(int id);
     }
 
 
-    private class HorizontalSequenceGenerator extends SequenceGenerator {
+    public class HorizontalSequenceGenerator extends SequenceGenerator {
 
-    @Override
-    public List<Integer> findIds(int id) {
-        return null;
-    }
+        @Override
+        public Set<Integer> findIds(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            integerSet.add(id);
+            integerSet.addAll(goLeft(id));
+            integerSet.addAll(goRight(id));
+
+            return integerSet;
+        }
+
+        private Set<Integer> goLeft(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            int colNo = board.getBd().getColumns();
+            int winSequenceLength = arbiter.getNoForWin();
+            for (int i = id - 1, j = 2; i >= 0 && j <= winSequenceLength; i--,j++) {
+                if (i/colNo == id/colNo) {
+                    integerSet.add(i);
+                } else {
+                    break;
+                }
+            }
+            return integerSet;
+        }
+
+        private Set<Integer> goRight(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            int colNo = board.getBd().getColumns();
+            int maxId = board.getMaxId();
+            int winSequenceLength = arbiter.getNoForWin();
+            for (int i = id + 1, j=2; i <= maxId && j <= winSequenceLength; i++,j++) {
+                if (i/colNo == id/colNo) {
+                    integerSet.add(i);
+                } else {
+                    break;
+                }
+            }
+            return integerSet;
+        }
+
     }
 }

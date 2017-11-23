@@ -54,4 +54,8 @@ public class Arbiter {
         }
         return sb.toString();
     }
+
+    public int getNoForWin() {
+        return noForWin;
+    }
 }
