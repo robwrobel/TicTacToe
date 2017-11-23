@@ -125,4 +125,55 @@ public class SequenceGeneratorManager implements MoveObserver {
         }
 
     }
+
+    public class DiagonalSequenceGenerator extends SequenceGenerator {
+        @Override
+        public Set<Integer> findIds(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            integerSet.add(id);
+            integerSet.addAll(goUpLeft(id));
+            integerSet.addAll(goDownRight(id));
+
+            return integerSet;
+        }
+
+        private Set<Integer> goUpLeft(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            int colNo = board.getBd().getColumns();
+            int winSequenceLength = arbiter.getNoForWin();
+
+            for(int i = id - colNo -1, j = 2, previousId = id;
+                i>=0 && j <= winSequenceLength && isNeighbourRow(i,previousId);
+                previousId = i, i -= colNo+1, j++) {
+                integerSet.add(i);
+            }
+            return integerSet;
+        }
+
+        private boolean isNeighbourRow(int i, int previousId) {
+            int colNo = board.getBd().getColumns();
+            int rowId1 = i/colNo;
+            int rowId2 = previousId/colNo;
+
+            return Math.abs(rowId1-rowId2) == 1;
+        }
+
+        private Set<Integer> goDownRight(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            int colNo = board.getBd().getColumns();
+            int maxId = board.getMaxId();
+            int winSequenceLength = arbiter.getNoForWin();
+
+            for(int i = id + colNo + 1, j = 2, previousId = id;
+                i <= maxId && j <= winSequenceLength && isNeighbourRow(i,previousId);
+                previousId = i, i += colNo+1, j++) {
+                integerSet.add(i);
+            }
+            return integerSet;
+
+        }
+
+    }
+
+
 }
