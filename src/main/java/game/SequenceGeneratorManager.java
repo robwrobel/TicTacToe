@@ -16,6 +16,7 @@ public class SequenceGeneratorManager implements MoveObserver {
         this.board = board;
         this.arbiter = arbiter;
         sequenceGeneratorList.add(new HorizontalSequenceGenerator());
+        sequenceGeneratorList.add(new VerticalSequenceGenerator());
     }
 
     public void update(Move m) {
@@ -86,6 +87,41 @@ public class SequenceGeneratorManager implements MoveObserver {
                 }
             }
             return integerSet;
+        }
+    }
+
+    public class VerticalSequenceGenerator extends SequenceGenerator {
+        @Override
+        public Set<Integer> findIds(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            integerSet.add(id);
+            integerSet.addAll(goUp(id));
+            integerSet.addAll(goDown(id));
+
+            return integerSet;
+        }
+
+        private Set<Integer> goDown(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            int colNo = board.getBd().getColumns();
+            int maxId = board.getMaxId();
+            int winSequenceLength = arbiter.getNoForWin();
+            for(int i = id + colNo, j = 2; i<=maxId && j <= winSequenceLength; i+=colNo, j++) {
+                integerSet.add(i);
+            }
+            return integerSet;
+        }
+
+        private Set<Integer> goUp(int id) {
+            Set<Integer> integerSet = new TreeSet<>();
+            int colNo = board.getBd().getColumns();
+            int maxId = board.getMaxId();
+            int winSequenceLength = arbiter.getNoForWin();
+            for(int i = id - colNo, j = 2; i>=0 && j <= winSequenceLength; i-=colNo, j++) {
+                integerSet.add(i);
+            }
+            return integerSet;
+
         }
 
     }
