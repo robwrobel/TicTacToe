@@ -20,6 +20,8 @@ public class Game {
         players.add(new Player(Mark.X));
     }
 
+    Scores scores = new Scores(players);
+
     public static void main(String[] args) {
         Game game = new Game();
         game.start();
@@ -29,7 +31,7 @@ public class Game {
         printWelcomeMessage();
         setPlayersNames();
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
-            new Match(ow,ir,players).start();
+            new Match(ow,ir,players, scores).start();
         }
     }
 

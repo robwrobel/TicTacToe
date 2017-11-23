@@ -20,11 +20,13 @@ public class Match {
     private SequenceGeneratorManager sequenceGeneratorManager;
     private List<Player> playerList;
     private Tour tour;
+    private Scores scores;
 
-    public Match(OutputWriter ow, InputReader ir, List<Player> playerList) {
+    public Match(OutputWriter ow, InputReader ir, List<Player> playerList, Scores scores) {
         this.ow = ow;
         this.ir = ir;
         this.playerList = playerList;
+        this.scores = scores;
     }
 
     public void start() {
@@ -48,6 +50,22 @@ public class Match {
             switchPlayer();
         }
         displayBoard();
+        if (arbiter.isVictory()) {
+            scores.updateScoreForWinner(tour.currentPlayer);
+            announceWhoWins();
+        }  else {
+            scores.updateScoreForDraw();
+            announceDraw();
+        }
+
+    }
+
+    private void announceDraw() {
+        ow.println("We have a draw");
+    }
+
+    private void announceWhoWins() {
+        ow.println("The winner is:" + tour.currentPlayer.getName());
     }
 
     private void initializeSequenceGeneratorManager() {
