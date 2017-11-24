@@ -2,7 +2,6 @@ import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
 import configuration.Mark;
-import game.Archive;
 import game.Move;
 import game.MoveValidator;
 import org.testng.annotations.DataProvider;
@@ -51,16 +50,15 @@ public class MoveValidatorTest {
     }
 
     @Test(dataProvider = "moveOnAlreadyMarkedId")
-    public void isMoveOnAlreadyMarkedId(int inputColumn, int inputRow, Move move, List<Move> listOfMovesInArchive, boolean isMoveValid) {
+    public void isMoveOnAlreadyMarkedId(int inputColumn, int inputRow, Move move, List<Move> listOfMoves, boolean isMoveValid) {
 
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
 
-        Archive archive = new Archive();
-        for (Move m : listOfMovesInArchive) {
-            archive.update(m);
+        Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
+        for (Move m : listOfMoves) {
+            board.update(m);
         }
 
-        Board board = new BoardBuilder(boardDimensions).viaArrayList().basedOnArchive(archive).build();
 
         MoveValidator moveValidator = new MoveValidator(board);
 

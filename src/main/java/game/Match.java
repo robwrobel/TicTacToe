@@ -13,7 +13,6 @@ public class Match {
     private OutputWriter ow;
     private InputReader ir;
 
-    private Archive archive;
     private Arbiter arbiter;
     private Board board;
     private MoveValidator moveValidator;
@@ -32,14 +31,17 @@ public class Match {
     public void start() {
 
         whoBegins();
+
         initializeBoard();
-        initializeMoveValidator();
-        initializeArchive();
-        initializeArbiter();
-        initializeSequenceGeneratorManager();
+
+        moveValidator = new MoveValidator(board);
+        arbiter = new Arbiter();
+        sequenceGeneratorManager = new SequenceGeneratorManager(board, arbiter);
+
         initializeObservers();
 
-        noForWin();
+        getNoOfConsecutiveMarksToWin();
+
         int maxNoOfMoves = board.getMaxId() + 1;
         for(int i = 1; i <= maxNoOfMoves;i++) {
             displayBoard();
@@ -65,16 +67,11 @@ public class Match {
     }
 
     private void announceWhoWins() {
-        ow.println("The winner is:" + tour.currentPlayer.getName());
-    }
-
-    private void initializeSequenceGeneratorManager() {
-        sequenceGeneratorManager = new SequenceGeneratorManager(board, arbiter);
+        ow.println("The winner of the match is:" + tour.currentPlayer.getName());
     }
 
     private void initializeObservers() {
         moveValidator.addObserver(board);
-        moveValidator.addObserver(archive);
         moveValidator.addObserver(sequenceGeneratorManager);
     }
 
@@ -90,7 +87,7 @@ public class Match {
         ow.println(board.toString());
     }
 
-    private void noForWin() {
+    private void getNoOfConsecutiveMarksToWin() {
         ow.println("Please enter number of consecutive marks for win");
         arbiter.setNoForWin(ir.getInt());
     }
@@ -106,19 +103,6 @@ public class Match {
         BoardBuilder bb = new BoardBuilder(bd);
         board = bb.viaArrayList().build();
 
-    }
-
-    private void initializeMoveValidator() {
-        moveValidator = new MoveValidator(board);
-
-    }
-
-    private void initializeArchive() {
-        archive = new Archive();
-    }
-
-    private void initializeArbiter() {
-        arbiter = new Arbiter();
     }
 
     private void whoBegins() {

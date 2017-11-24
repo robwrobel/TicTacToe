@@ -1,15 +1,7 @@
-import configuration.Board;
-import configuration.BoardBuilder;
-import configuration.BoardDimensions;
-import configuration.Mark;
 import game.Arbiter;
-import game.Archive;
-import game.Move;
-import game.MoveValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -2,7 +2,6 @@ import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
 import configuration.Mark;
-import game.Archive;
 import game.Move;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -54,8 +53,7 @@ public class BoardTest {
     @Test(dataProvider = "boardDimensionsSet")
     void testIfAllMarksAreEmptyInTheBeginingOfTheMatch(int inputColumn,int inputRow) {
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
-        Archive archive = new Archive();
-        Board board = new BoardBuilder(boardDimensions).viaArrayList().basedOnArchive(archive).build();
+        Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
 
         for(int id = 0; id <= board.getMaxId(); id++) {
             assertFalse(board.isMarked(id));
@@ -126,13 +124,12 @@ public class BoardTest {
 
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
 
-        Archive archive = new Archive();
 
+        Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
         for (Move move: listOfMoves) {
-            archive.update(move);
+            board.update(move);
         }
 
-        Board board = new BoardBuilder(boardDimensions).viaArrayList().basedOnArchive(archive).build();
         assertEquals(expectedBoardDisplay, board.toString());
 
     }
