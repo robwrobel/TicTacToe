@@ -2,8 +2,7 @@ package game;
 
 import configuration.Mark;
 import configuration.Player;
-import inout.InputReader;
-import inout.OutputWriter;
+import inout.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,8 @@ import java.util.List;
 public class Game {
 
     private static final int NO_OF_MATCHES_IN_GAME = 3;
-    OutputWriter ow = new OutputWriter();
-    InputReader ir = new InputReader();
+    OutputWriter ow;
+    InputReader ir;
 
     List<Player> players = new ArrayList<>();
     {
@@ -29,13 +28,32 @@ public class Game {
     }
 
     private void start() {
+        setInOut();
         printWelcomeMessage();
+
         setPlayersNames();
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
             new Match(ow,ir,players, arbiter).start();
             scores.display();
         }
         displayGameResults();
+    }
+
+    private void setInOut() {
+
+        String InOut = System.getProperty("InOut","system");
+
+        switch (InOut.toLowerCase()) {
+            case "system" :
+                ow = new SystemOutOutputWriter();
+                ir = new SystemInInputReader();
+                break;
+            case "file" :
+                ow = new FileOutputWriter();
+                ir = new FileInputReader();
+                break;
+        }
+
     }
 
     private void displayGameResults() {
