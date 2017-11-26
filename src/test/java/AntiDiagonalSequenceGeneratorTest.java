@@ -40,7 +40,7 @@ public class AntiDiagonalSequenceGeneratorTest {
 
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
-        Arbiter arbiter = new Arbiter();
+        Arbiter arbiter = new Arbiter(null, null);
         arbiter.setNoForWin(noForWin);
         SequenceGeneratorManager sgm = new SequenceGeneratorManager(board, arbiter);
         AntiDiagonalSequenceGenerator antiDiagonalSequenceGenerator =

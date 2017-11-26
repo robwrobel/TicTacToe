@@ -17,7 +17,7 @@ public class Scores {
     }
 
     public void display() {
-        map.forEach((Player p, Integer score) -> System.out.println(p.getName() + " scored: " + score));
+        map.forEach((Player p, Integer score) -> System.out.println(p + " scored: " + score));
     }
 
     public void updateScoreForDraw() {
@@ -28,5 +28,13 @@ public class Scores {
 
     public void updateScoreForWinner(Player currentPlayer) {
         map.merge(currentPlayer , SCORE_FOR_WIN , ( i,j ) -> i + j);
+    }
+
+    public int getScoreForPlayer(Player player) {
+        return map.get(player);
+    }
+
+    public int getHighestScore() {
+        return map.keySet().stream().mapToInt((Player p) -> getScoreForPlayer(p)).max().getAsInt();
     }
 }

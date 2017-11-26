@@ -21,6 +21,7 @@ public class Game {
     }
 
     Scores scores = new Scores(players);
+    Arbiter arbiter = new Arbiter(scores, players);
 
     public static void main(String[] args) {
         Game game = new Game();
@@ -31,7 +32,18 @@ public class Game {
         printWelcomeMessage();
         setPlayersNames();
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
-            new Match(ow,ir,players, scores).start();
+            new Match(ow,ir,players, arbiter).start();
+            scores.display();
+        }
+        displayGameResults();
+    }
+
+    private void displayGameResults() {
+        ow.println("The match is over!");
+        if (arbiter.isGameResultDraw()) {
+            ow.println("Final match result: DRAW");
+        } else {
+            ow.println("And the WINNER is: " + arbiter.whoWinsTheGame());
         }
     }
 

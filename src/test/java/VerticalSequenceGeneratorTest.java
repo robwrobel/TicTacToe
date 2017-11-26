@@ -40,7 +40,7 @@ public class VerticalSequenceGeneratorTest {
 
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
-        Arbiter arbiter = new Arbiter();
+        Arbiter arbiter = new Arbiter(null, null);
         arbiter.setNoForWin(noForWin);
 
         VerticalSequenceGenerator verticalSequenceGenerator =

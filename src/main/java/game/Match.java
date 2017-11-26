@@ -19,13 +19,12 @@ public class Match {
     private SequenceGeneratorManager sequenceGeneratorManager;
     private List<Player> playerList;
     private Tour tour;
-    private Scores scores;
 
-    public Match(OutputWriter ow, InputReader ir, List<Player> playerList, Scores scores) {
+    public Match(OutputWriter ow, InputReader ir, List<Player> playerList, Arbiter arbiter) {
         this.ow = ow;
         this.ir = ir;
         this.playerList = playerList;
-        this.scores = scores;
+        this.arbiter = arbiter;
     }
 
     public void start() {
@@ -35,7 +34,7 @@ public class Match {
         initializeBoard();
 
         moveValidator = new MoveValidator(board);
-        arbiter = new Arbiter();
+
         sequenceGeneratorManager = new SequenceGeneratorManager(board, arbiter);
 
         initializeObservers();
@@ -46,17 +45,18 @@ public class Match {
         for(int i = 1; i <= maxNoOfMoves;i++) {
             displayBoard();
             keepAskingPlayerForNewMove();
-            if (arbiter.isVictory()) {
+            if (arbiter.isMatchVictory()) {
                 break;
             }
             switchPlayer();
         }
         displayBoard();
-        if (arbiter.isVictory()) {
-            scores.updateScoreForWinner(tour.currentPlayer);
+        if (arbiter.isMatchVictory()) {
+            arbiter.getScores().updateScoreForWinner(tour.currentPlayer);
             announceWhoWins();
+            arbiter.clearMatchVictory();
         }  else {
-            scores.updateScoreForDraw();
+            arbiter.getScores().updateScoreForDraw();
             announceDraw();
         }
 
@@ -67,7 +67,7 @@ public class Match {
     }
 
     private void announceWhoWins() {
-        ow.println("The winner of the match is:" + tour.currentPlayer.getName());
+        ow.println("The winner of the match is:" + tour.currentPlayer);
     }
 
     private void initializeObservers() {
@@ -106,8 +106,8 @@ public class Match {
     }
 
     private void whoBegins() {
-        ow.println("Please select who begins (1 - Player1: " + playerList.get(0).getName() +
-                   " , 2 - Player2: "+playerList.get(1).getName()+ ")");
+        ow.println("Please select who begins (1 - Player1: " + playerList.get(0) +
+                   " , 2 - Player2: "+playerList.get(1)+ ")");
         int input;
         do {
             input = ir.getInt();
@@ -126,7 +126,7 @@ public class Match {
     }
 
     private void askUserForNewMove() {
-        ow.println("Now player: " + tour.currentPlayer.getName() + " move");
+        ow.println("Now player: " + tour.currentPlayer + " move");
         ow.println("Please enter id");
         int id = ir.getInt();
         Move move = new Move(tour.currentPlayer.getMark(),id);

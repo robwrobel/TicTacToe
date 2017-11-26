@@ -19,10 +19,10 @@ public class ArbiterTest {
 
     @Test(dataProvider = "checkForVictory")
     public void checkForVictory(List<String> sequences, String mark, int noForVictory, boolean isVictory) {
-        Arbiter arbiter = new Arbiter();
+        Arbiter arbiter = new Arbiter(null, null);
         arbiter.setNoForWin(noForVictory);
         arbiter.update(sequences,mark);
-        assertEquals(isVictory,arbiter.isVictory());
+        assertEquals(isVictory,arbiter.isMatchVictory());
     }
 
 }
