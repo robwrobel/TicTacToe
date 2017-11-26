@@ -2,6 +2,7 @@ import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
 import game.Arbiter;
+import game.HorizontalSequenceGenerator;
 import game.SequenceGeneratorManager;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -41,9 +42,9 @@ public class HorizontalSequenceGeneratorTest {
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
         Arbiter arbiter = new Arbiter();
         arbiter.setNoForWin(noForWin);
-        SequenceGeneratorManager sgm = new SequenceGeneratorManager(board, arbiter);
-        SequenceGeneratorManager.HorizontalSequenceGenerator horizontalSequenceGenerator =
-                sgm.new HorizontalSequenceGenerator();
+
+        HorizontalSequenceGenerator horizontalSequenceGenerator =
+                new HorizontalSequenceGenerator(board, arbiter);
         Set<Integer> actualIdSet = horizontalSequenceGenerator.findIds(id);
         assertEquals(actualIdSet, expectedResult);
 

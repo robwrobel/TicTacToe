@@ -1,6 +1,7 @@
 import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
+import game.AntiDiagonalSequenceGenerator;
 import game.Arbiter;
 import game.SequenceGeneratorManager;
 import org.testng.annotations.DataProvider;
@@ -42,8 +43,8 @@ public class AntiDiagonalSequenceGeneratorTest {
         Arbiter arbiter = new Arbiter();
         arbiter.setNoForWin(noForWin);
         SequenceGeneratorManager sgm = new SequenceGeneratorManager(board, arbiter);
-        SequenceGeneratorManager.AntiDiagonalSequenceGenerator antiDiagonalSequenceGenerator =
-                sgm.new AntiDiagonalSequenceGenerator();
+        AntiDiagonalSequenceGenerator antiDiagonalSequenceGenerator =
+                new AntiDiagonalSequenceGenerator(board, arbiter);
         Set<Integer> actualIdSet = antiDiagonalSequenceGenerator.findIds(id);
         assertEquals(actualIdSet, expectedResult);
 
