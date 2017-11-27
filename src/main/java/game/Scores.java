@@ -16,8 +16,11 @@ public class Scores {
         players.forEach((Player p) -> map.put(p,0));
     }
 
-    public void display() {
-        map.forEach((Player p, Integer score) -> System.out.println(p + " scored: " + score));
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        map.forEach((Player p, Integer score) -> sb.append(p).append(" scored: ").append(score).append("\n"));
+        return sb.toString();
     }
 
     public void updateScoreForDraw() {

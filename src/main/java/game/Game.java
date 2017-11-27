@@ -4,6 +4,8 @@ import configuration.Mark;
 import configuration.Player;
 import inout.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,29 +32,49 @@ public class Game {
     private void start() {
         setInOut();
         printWelcomeMessage();
-
         setPlayersNames();
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
             new Match(ow,ir,players, arbiter).start();
-            scores.display();
+            ow.println(scores.toString());
         }
         displayGameResults();
     }
 
     private void setInOut() {
 
-        String InOut = System.getProperty("InOut","system");
+        String In = System.getProperty("In","system");
+        String Out = System.getProperty("Out","system");
 
-        switch (InOut.toLowerCase()) {
+        switch (In.toLowerCase()) {
             case "system" :
-                ow = new SystemOutOutputWriter();
                 ir = new SystemInInputReader();
                 break;
             case "file" :
-                ow = new FileOutputWriter();
-                ir = new FileInputReader();
+                try {
+                    ir = new FileInputReader();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
+
+        switch (Out.toLowerCase()) {
+            case "system" :
+                ow = new SystemOutOutputWriter();
+                break;
+            case "file" :
+                try {
+                    ow = new FileOutputWriter();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+
 
     }
 
@@ -72,7 +94,7 @@ public class Game {
     private void setPlayersNames() {
         int i=1;
         for(Player p: players) {
-            System.out.println("Please enter player "+ i + " name:");
+            ow.println("Please enter player "+ i + " name:");
             p.setName(ir.getString());
             i++;
         }
