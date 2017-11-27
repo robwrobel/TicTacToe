@@ -1,3 +1,5 @@
+package game;
+
 import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;

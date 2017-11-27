@@ -1,3 +1,5 @@
+package configuration;
+
 import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;

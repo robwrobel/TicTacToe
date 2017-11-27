@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Scores {
-    private static final int SCORE_FOR_WIN = 3;
-    private static final int SCORE_FOR_DRAW = 1;
+    static final int SCORE_FOR_WIN = 3;
+    static final int SCORE_FOR_DRAW = 1;
 
     Map<Player,Integer> map = new HashMap<>();
 
-    Scores(List<Player> players) {
+    public Scores(List<Player> players) {
         players.forEach((Player p) -> map.put(p,0));
     }
 

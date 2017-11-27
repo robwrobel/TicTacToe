@@ -1,9 +1,11 @@
+package game;
+
 import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
 import game.Arbiter;
+import game.HorizontalSequenceGenerator;
 import game.SequenceGeneratorManager;
-import game.VerticalSequenceGenerator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -13,17 +15,17 @@ import java.util.TreeSet;
 
 import static org.testng.Assert.assertEquals;
 
-public class VerticalSequenceGeneratorTest {
+public class HorizontalSequenceGeneratorTest {
 
-    @DataProvider(name = "BoardSize_Id_NoForWin_ResultSequenceSet")
-    public static Object[][] BoardSize_Id_NoForWin_ResultSequenceSet() {
-        return new Object[][]{ {3, 3, 0, 3, new TreeSet<>(Arrays.asList(0, 3, 6))},
-                {3, 3, 2, 3, new TreeSet<>(Arrays.asList(2, 5, 8))},
-                {3, 3, 4, 3, new TreeSet<>(Arrays.asList(1, 4, 7))},
-                {10, 10, 5, 10, new TreeSet<>(Arrays.asList(5, 15, 25, 35, 45, 55, 65, 75, 85, 95))},
-                {10, 10, 0, 10, new TreeSet<>(Arrays.asList(0, 10, 20, 30, 40, 50, 60, 70, 80, 90))},
-                {10, 10, 5, 3, new TreeSet<>(Arrays.asList(5, 15, 25))},
-                {3, 2, 2, 2, new TreeSet<>(Arrays.asList(2,5))}
+    @DataProvider(name = "BoardSizeIdNoForWinResultSequenceSet")
+    public static Object[][] BoardSizeIdNoForWinResultSequenceSet() {
+        return new Object[][]{ {3, 3, 0, 3, new TreeSet<>(Arrays.asList(0, 1, 2))},
+                {3, 3, 2, 3, new TreeSet<>(Arrays.asList(0, 1, 2))},
+                {3, 3, 4, 3, new TreeSet<>(Arrays.asList(3, 4, 5))},
+                {10, 10, 5, 10, new TreeSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9))},
+                {10, 10, 0, 10, new TreeSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9))},
+                {10, 10, 5, 3, new TreeSet<>(Arrays.asList(3,4,5,6,7))},
+                {3,2,2,3, new TreeSet<>(Arrays.asList(0, 1, 2))}
 
         };
 
@@ -31,7 +33,7 @@ public class VerticalSequenceGeneratorTest {
     }
 
 
-    @Test(dataProvider = "BoardSize_Id_NoForWin_ResultSequenceSet")
+    @Test(dataProvider = "BoardSizeIdNoForWinResultSequenceSet")
     public void checkIfGeneratedSequenceIsCorrectOrNot(int inputColumn,
                                                        int inputRow,
                                                        int id,
@@ -43,12 +45,11 @@ public class VerticalSequenceGeneratorTest {
         Arbiter arbiter = new Arbiter(null, null);
         arbiter.setNoForWin(noForWin);
 
-        VerticalSequenceGenerator verticalSequenceGenerator =
-                new VerticalSequenceGenerator(board, arbiter);
-        Set<Integer> actualIdSet = verticalSequenceGenerator.findIds(id);
+        HorizontalSequenceGenerator horizontalSequenceGenerator =
+                new HorizontalSequenceGenerator(board, arbiter);
+        Set<Integer> actualIdSet = horizontalSequenceGenerator.findIds(id);
         assertEquals(actualIdSet, expectedResult);
 
     }
 
 }
-

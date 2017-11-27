@@ -1,3 +1,5 @@
+package configuration;
+
 import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
@@ -34,8 +36,8 @@ public class BoardTest {
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
         int actualRow = board.getBd().getRows();
         int actualColumn = board.getBd().getColumns();
-        assertEquals(expectedColumn,actualColumn);
-        assertEquals(expectedRow,actualRow);
+        assertEquals(actualColumn, expectedColumn);
+        assertEquals(actualRow, expectedRow);
     }
 
     @DataProvider(name = "boardDimensionsSet")
@@ -83,7 +85,7 @@ public class BoardTest {
         for (Move move: listOfMoves)
             board.update(move);
 
-        assertEquals(expectedBoardDisplay, board.toString());
+        assertEquals(board.toString(), expectedBoardDisplay);
     }
 
     @DataProvider(name = "boardMaxId")
@@ -104,12 +106,12 @@ public class BoardTest {
 
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
 
-        assertEquals(expectedMaxId, board.getMaxId());
+        assertEquals(board.getMaxId(), expectedMaxId );
     }
 
-    @DataProvider(name = "boardBasedOnArchive")
+    @DataProvider(name = "boardBasedOnMoveList")
 
-    public static Object[][] boardBasedOnArchive() {
+    public static Object[][] boardBasedOnMoveList() {
 
         return new Object[][]{
                 {1, 1, Arrays.asList(new Move(Mark.O,0)), "   O\n"},
@@ -119,7 +121,7 @@ public class BoardTest {
     }
 
 
-    @Test(dataProvider = "boardBasedOnArchive")
+    @Test(dataProvider = "boardBasedOnMoveList")
     void testCreatingBoardBasedOnArchive(int inputColumn, int inputRow, List<Move> listOfMoves, String expectedBoardDisplay) {
 
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
@@ -130,7 +132,7 @@ public class BoardTest {
             board.update(move);
         }
 
-        assertEquals(expectedBoardDisplay, board.toString());
+        assertEquals(board.toString(), expectedBoardDisplay );
 
     }
 }

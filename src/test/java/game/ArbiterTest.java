@@ -1,3 +1,5 @@
+package game;
+
 import game.Arbiter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
