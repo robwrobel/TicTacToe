@@ -27,4 +27,5 @@ public class SystemInInputReader implements InputReader {
         String input=scanner.nextLine();
         return input;
     }
+
 }

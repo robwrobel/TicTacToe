@@ -36,8 +36,22 @@ public class Game {
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
             new Match(ow,ir,players, arbiter).start();
             ow.println(scores.toString());
+            if (!isNewMatch()) break;
         }
         displayGameResults();
+    }
+
+    private boolean isNewMatch() {
+        ow.println("Play another match? (y/n)");
+        String s;
+        do {
+                s = ir.getString().toLowerCase();
+        } while (!s.equals("y") && !s.equals("n"));
+
+        if (s.equals("y"))
+            return true;
+        else
+            return false;
     }
 
     private void setInOut() {
