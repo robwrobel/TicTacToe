@@ -6,7 +6,7 @@ import java.io.*;
 
 public class FileInputReader implements InputReader {
 
-    String inputFileName = "in.txt";
+    String inputFileName = System.getProperty("InFileName","in.txt");
 
     BufferedReader fileReader = new BufferedReader(new FileReader(inputFileName));
 
@@ -23,7 +23,7 @@ public class FileInputReader implements InputReader {
             String line = fileReader.readLine();
             ow.println(line);
             i = Integer.parseInt(line);
-        } catch (IOException e) {
+        } catch (IOException |NumberFormatException e) {
             ow.println(Game.resourceBundle.getString("EnterANumber"));
         }
 

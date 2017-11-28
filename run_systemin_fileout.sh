@@ -1,2 +1,2 @@
 #!/bin/sh
-java -DIn=system -DOut=file -classpath ./target/tictactoe-1.0-SNAPSHOT.jar game.Game
+java -DIn=system -DOut=file -jar ./target/tictactoe-1.0-SNAPSHOT.jar 

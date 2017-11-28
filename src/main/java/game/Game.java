@@ -40,7 +40,7 @@ public class Game {
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
             new Match(ow,ir,players, arbiter).start();
             ow.println(scores.toString());
-            if (!isNewMatch()) break;
+            if (i == NO_OF_MATCHES_IN_GAME || !isNewMatch()) break;
         }
         displayGameResults();
     }

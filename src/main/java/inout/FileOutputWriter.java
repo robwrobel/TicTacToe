@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FileOutputWriter implements OutputWriter {
 
-    String outputFileName = "out.txt";
+    String outputFileName = System.getProperty("OutFileName","out.txt");;
 
     BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFileName));
 
