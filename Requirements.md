@@ -10,7 +10,7 @@ Give points for draw and win	| 27.11.2017
 Winning conditions:		| 23.11.2017
 Announce win/draw message	| 23.11.2017
 Configurable messages target	| 27.11.2017
-Add multi language support	|
+Add multi language support	| 28.11.2017
 Add validation for all user input| 28.11.2017
 It is "best of three". though can quit mid way through| 28.11.2017
 Characters :O(naught) and X(cross)| 21.11.2017
