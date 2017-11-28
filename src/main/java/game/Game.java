@@ -45,21 +45,6 @@ public class Game {
         String In = System.getProperty("In","system");
         String Out = System.getProperty("Out","system");
 
-        switch (In.toLowerCase()) {
-            case "system" :
-                ir = new SystemInInputReader();
-                break;
-            case "file" :
-                try {
-                    ir = new FileInputReader();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-
         switch (Out.toLowerCase()) {
             case "system" :
                 ow = new SystemOutOutputWriter();
@@ -74,6 +59,22 @@ public class Game {
                 }
                 break;
         }
+
+        switch (In.toLowerCase()) {
+            case "system" :
+                ir = new SystemInInputReader();
+                break;
+            case "file" :
+                try {
+                    ir = new FileInputReader(ow);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+
 
 
     }

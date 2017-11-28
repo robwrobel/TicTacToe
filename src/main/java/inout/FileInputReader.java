@@ -8,17 +8,23 @@ public class FileInputReader implements InputReader {
 
     BufferedReader fileReader = new BufferedReader(new FileReader(inputFileName));
 
-    public FileInputReader() throws FileNotFoundException {
+    OutputWriter ow;
+
+    public FileInputReader(OutputWriter ow) throws FileNotFoundException {
+        this.ow = ow;
     }
 
     @Override
     public int getInt() {
         int i = -1;
         try {
-            i = Integer.parseInt(fileReader.readLine());
+            String line = fileReader.readLine();
+            ow.println(line);
+            i = Integer.parseInt(line);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return i;
     }
 
@@ -27,6 +33,7 @@ public class FileInputReader implements InputReader {
         String s = "";
         try {
             s = fileReader.readLine();
+            ow.println(s);
         } catch (IOException e) {
             e.printStackTrace();
         }
