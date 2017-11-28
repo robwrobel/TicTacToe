@@ -14,7 +14,7 @@ public class VerticalSequenceGenerator extends SequenceGenerator {
         STEP = board.getBd().getColumns();
     }
     public Set<Integer> goForSmaller(int id, Set<Integer> integerSet){
-        if ( boardEdges.isTopEdge(id) || counter == arbiter.getNoForWin()) {
+        if ( boardEdges.isTopEdge(id) || counter == arbiter.getWinSequenceLength()) {
             return integerSet;
         } else {
             int nextId = id - STEP;
@@ -25,7 +25,7 @@ public class VerticalSequenceGenerator extends SequenceGenerator {
     }
 
     public Set<Integer> goForBigger(int id, Set<Integer> integerSet) {
-        if ( boardEdges.isBottomEdge(id) || counter == arbiter.getNoForWin()) {
+        if ( boardEdges.isBottomEdge(id) || counter == arbiter.getWinSequenceLength()) {
             return integerSet;
         } else {
             int nextId = id + STEP;

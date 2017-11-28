@@ -44,9 +44,7 @@ public class Game {
     private boolean isNewMatch() {
         ow.println("Play another match? (y/n)");
         String s;
-        do {
-                s = ir.getString().toLowerCase();
-        } while (!s.equals("y") && !s.equals("n"));
+        s = ir.getYesNoString();
 
         if (s.equals("y"))
             return true;
@@ -110,7 +108,7 @@ public class Game {
         int i=1;
         for(Player p: players) {
             ow.println("Please enter player "+ i + " name:");
-            p.setName(ir.getString());
+            p.setName(ir.getNonEmptyString());
             i++;
         }
     }

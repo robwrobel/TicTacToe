@@ -3,9 +3,6 @@ package game;
 import configuration.Board;
 import configuration.BoardBuilder;
 import configuration.BoardDimensions;
-import game.AntiDiagonalSequenceGenerator;
-import game.Arbiter;
-import game.SequenceGeneratorManager;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -37,13 +34,13 @@ public class AntiDiagonalSequenceGeneratorTest {
     public void checkIfGeneratedSequenceIsCorrectOrNot(int inputColumn,
                                                        int inputRow,
                                                        int id,
-                                                       int noForWin,
+                                                       int winSequenceLength,
                                                        Set<Integer> expectedResult) {
 
         BoardDimensions boardDimensions = new BoardDimensions(inputColumn,inputRow);
         Board board = new BoardBuilder(boardDimensions).viaArrayList().build();
         Arbiter arbiter = new Arbiter(null, null);
-        arbiter.setNoForWin(noForWin);
+        arbiter.setWinSequenceLength(winSequenceLength);
         SequenceGeneratorManager sgm = new SequenceGeneratorManager(board, arbiter);
         AntiDiagonalSequenceGenerator antiDiagonalSequenceGenerator =
                 new AntiDiagonalSequenceGenerator(board, arbiter);

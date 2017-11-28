@@ -10,6 +10,7 @@ import inout.OutputWriter;
 import java.util.List;
 
 public class Match {
+
     private OutputWriter ow;
     private InputReader ir;
 
@@ -39,7 +40,7 @@ public class Match {
 
         initializeObservers();
 
-        getNoOfConsecutiveMarksToWin();
+        getWinSequenceLength();
 
         int maxNoOfMoves = board.getMaxId() + 1;
         for(int i = 1; i <= maxNoOfMoves;i++) {
@@ -87,17 +88,28 @@ public class Match {
         ow.println(board.toString());
     }
 
-    private void getNoOfConsecutiveMarksToWin() {
-        ow.println("Please enter number of consecutive marks for win");
-        arbiter.setNoForWin(ir.getInt());
+    private void getWinSequenceLength() {
+
+        int maxWinSequenceLength = Math.max(board.getBd().getColumns()
+                                            , board.getBd().getRows());
+        ow.println("Please enter win sequence length: (3-"+ maxWinSequenceLength + ")");
+        arbiter.setWinSequenceLength(ir.getInt(3, maxWinSequenceLength));
     }
     private void initializeBoard() {
 
-        ow.println("Please enter number of columns");
-        int col = ir.getInt();
+        ow.println("Please enter number of columns: ("
+                + BoardDimensions.MIN_NO_OF_COLUMNS
+                + "-"
+                + BoardDimensions.MAX_NO_OF_COLUMNS
+                + ")");
+        int col = ir.getInt(BoardDimensions.MIN_NO_OF_COLUMNS, BoardDimensions.MAX_NO_OF_COLUMNS );
 
-        ow.println("Please enter number of rows");
-        int row = ir.getInt();
+        ow.println("Please enter number of rows: ("
+                + BoardDimensions.MIN_NO_OF_ROWS
+                + "-"
+                + BoardDimensions.MAX_NO_OF_ROWS
+                + ")");
+        int row = ir.getInt(BoardDimensions.MIN_NO_OF_ROWS, BoardDimensions.MAX_NO_OF_ROWS);
 
         BoardDimensions bd = new BoardDimensions(col,row);
         BoardBuilder bb = new BoardBuilder(bd);

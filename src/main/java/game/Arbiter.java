@@ -1,8 +1,5 @@
 package game;
 
-import configuration.Board;
-import configuration.Mark;
-import configuration.MoveObserver;
 import configuration.Player;
 
 import java.util.List;
@@ -12,7 +9,7 @@ import java.util.regex.Pattern;
 public class Arbiter {
 
     private final List<Player> players;
-    private int noForWin;
+    private int winSequenceLength;
     private boolean matchVictory;
     private Scores scores;
     
@@ -20,8 +17,8 @@ public class Arbiter {
         this.scores = scores;
         this.players = players;
     } 
-    public void setNoForWin(int noForWin) {
-        this.noForWin = noForWin;
+    public void setWinSequenceLength(int winSequenceLength) {
+        this.winSequenceLength = winSequenceLength;
     }
 
     public boolean isMatchVictory() {
@@ -60,14 +57,14 @@ public class Arbiter {
     private String createRegex(String mark) {
         StringBuilder sb = new StringBuilder();
         sb.append("(" + mark + ")");
-        for (int i=1; i < noForWin; i++) {
+        for (int i = 1; i < winSequenceLength; i++) {
             sb.append("\\1");
         }
         return sb.toString();
     }
 
-    public int getNoForWin() {
-        return noForWin;
+    public int getWinSequenceLength() {
+        return winSequenceLength;
     }
 
     public Scores getScores() {

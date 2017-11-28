@@ -12,7 +12,7 @@ public class HorizontalSequenceGenerator extends SequenceGenerator {
         super(board, arbiter);
     }
     public Set<Integer> goForSmaller(int id, Set<Integer> integerSet){
-        if ( boardEdges.isLeftEdge(id) || counter == arbiter.getNoForWin()) {
+        if ( boardEdges.isLeftEdge(id) || counter == arbiter.getWinSequenceLength()) {
             return integerSet;
         } else {
             int nextId = id - STEP;
@@ -23,7 +23,7 @@ public class HorizontalSequenceGenerator extends SequenceGenerator {
     }
 
     public Set<Integer> goForBigger(int id, Set<Integer> integerSet) {
-        if ( boardEdges.isRightEdge(id) || counter == arbiter.getNoForWin()) {
+        if ( boardEdges.isRightEdge(id) || counter == arbiter.getWinSequenceLength()) {
 
             return integerSet;
         } else {
