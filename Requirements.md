@@ -16,8 +16,7 @@ It is "best of three". though can quit mid way through|
 Characters :O(naught) and X(cross)| 21.11.2017
 Players have names and scores| 21.11.2017
 Square and rectangular boards| 21.11.2017
-
-<b>Non functional Requirements</b>
+<b>Non functional Requirements</b>|
 It must work | 23.11.2017
 60% unit test coverage |
 Functions in accordance with functional requirements|
