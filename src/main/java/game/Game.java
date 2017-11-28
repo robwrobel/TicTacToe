@@ -8,10 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Game {
 
     private static final int NO_OF_MATCHES_IN_GAME = 3;
+    public static ResourceBundle resourceBundle ;
     OutputWriter ow;
     InputReader ir;
 
@@ -31,6 +34,7 @@ public class Game {
 
     private void start() {
         setInOut();
+        setLanguage();
         printWelcomeMessage();
         setPlayersNames();
         for (int i=1; i <= NO_OF_MATCHES_IN_GAME; i++) {
@@ -41,12 +45,31 @@ public class Game {
         displayGameResults();
     }
 
+    private void setLanguage() {
+        ow.println("For English type 1 <<<<>>>>> Język polski wpisz 2");
+        int i = ir.getInt(1,2);
+        Locale locale;
+        switch (i) {
+            case 1:
+                locale = new Locale("en", "US");
+                break;
+            case 2:
+                locale = new Locale("pl", "PL");
+                break;
+            default:
+                locale = new Locale("en", "US");
+        }
+
+        resourceBundle = ResourceBundle.getBundle("Messages", locale);
+
+    }
+
     private boolean isNewMatch() {
-        ow.println("Play another match? (y/n)");
+        ow.println(resourceBundle.getString("AnotherMatch"));
         String s;
         s = ir.getYesNoString();
 
-        if (s.equals("y"))
+        if (s.equals(resourceBundle.getString("yes")))
             return true;
         else
             return false;
@@ -74,7 +97,7 @@ public class Game {
 
         switch (In.toLowerCase()) {
             case "system" :
-                ir = new SystemInInputReader();
+                ir = new SystemInInputReader(ow instanceof SystemOutOutputWriter ? new DummyOutputWriter():ow);
                 break;
             case "file" :
                 try {
@@ -87,27 +110,25 @@ public class Game {
                 break;
         }
 
-
-
     }
 
     private void displayGameResults() {
-        ow.println("The match is over!");
+        ow.println(resourceBundle.getString("TheMatchIsOver"));
         if (arbiter.isGameResultDraw()) {
-            ow.println("Final match result: DRAW");
+            ow.println(resourceBundle.getString("FinalMatchResultDraw"));
         } else {
-            ow.println("And the WINNER is: " + arbiter.whoWinsTheGame());
+            ow.println(resourceBundle.getString("AndTheWinnerIs")+": " + arbiter.whoWinsTheGame());
         }
     }
 
     private void printWelcomeMessage() {
-        ow.println("New Game Started!");
+        ow.println(resourceBundle.getString("NewGameStarted"));
     }
 
     private void setPlayersNames() {
         int i=1;
         for(Player p: players) {
-            ow.println("Please enter player "+ i + " name:");
+            ow.println(resourceBundle.getString("NameOfPlayer") + " "+  i );
             p.setName(ir.getNonEmptyString());
             i++;
         }

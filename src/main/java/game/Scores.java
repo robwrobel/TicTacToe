@@ -19,7 +19,12 @@ public class Scores {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        map.forEach((Player p, Integer score) -> sb.append(p).append(" scored: ").append(score).append("\n"));
+        map.forEach((Player p, Integer score) -> sb.append(p)
+                .append(" ")
+                .append(Game.resourceBundle.getString("scored"))
+                .append(":")
+                .append(score)
+                .append("\n"));
         return sb.toString();
     }
 

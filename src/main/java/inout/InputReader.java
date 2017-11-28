@@ -1,5 +1,7 @@
 package inout;
 
+import game.Game;
+
 public interface InputReader {
 
     public int getInt();
@@ -25,7 +27,8 @@ public interface InputReader {
         String s;
         do {
             s = getString();
-        } while (!s.equals("y") && !s.equals("n"));
+        } while (!s.equals(Game.resourceBundle.getString("yes"))
+                && !s.equals(Game.resourceBundle.getString("no")));
         return s;
     }
 }

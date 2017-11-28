@@ -1,9 +1,16 @@
 package inout;
 
+import game.Game;
+
 import java.util.Scanner;
 
 public class SystemInInputReader implements InputReader {
     private Scanner scanner = new Scanner(System.in);
+    OutputWriter ow;
+
+    public SystemInInputReader(OutputWriter ow) {
+        this.ow = ow;
+    }
 
     public int getInt() {
         boolean repeat = false;
@@ -11,11 +18,12 @@ public class SystemInInputReader implements InputReader {
 
         do {
             String input=scanner.nextLine();
+            ow.println(input);
             try {
                 i= Integer.parseInt(input);
                 repeat = false;
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a number");
+                ow.println(Game.resourceBundle.getString("EnterANumber"));
                 repeat = true;
             }
         } while (repeat);
@@ -25,6 +33,7 @@ public class SystemInInputReader implements InputReader {
 
     public String getString() {
         String input=scanner.nextLine();
+        ow.println(input);
         return input;
     }
 

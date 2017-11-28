@@ -1,5 +1,7 @@
 package inout;
 
+import game.Game;
+
 import java.io.*;
 
 public class FileInputReader implements InputReader {
@@ -22,7 +24,7 @@ public class FileInputReader implements InputReader {
             ow.println(line);
             i = Integer.parseInt(line);
         } catch (IOException e) {
-            e.printStackTrace();
+            ow.println(Game.resourceBundle.getString("EnterANumber"));
         }
 
         return i;

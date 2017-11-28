@@ -64,11 +64,11 @@ public class Match {
     }
 
     private void announceDraw() {
-        ow.println("We have a draw");
+        ow.println(Game.resourceBundle.getString("WeHaveADraw"));
     }
 
     private void announceWhoWins() {
-        ow.println("The winner of the match is:" + tour.currentPlayer);
+        ow.println(Game.resourceBundle.getString("TheWinnerOfTheMatch") + ": " + tour.currentPlayer);
     }
 
     private void initializeObservers() {
@@ -92,19 +92,19 @@ public class Match {
 
         int maxWinSequenceLength = Math.max(board.getBd().getColumns()
                                             , board.getBd().getRows());
-        ow.println("Please enter win sequence length: (3-"+ maxWinSequenceLength + ")");
+        ow.println(Game.resourceBundle.getString("WinSequenceLength")+": (3-"+ maxWinSequenceLength + ")");
         arbiter.setWinSequenceLength(ir.getInt(3, maxWinSequenceLength));
     }
     private void initializeBoard() {
 
-        ow.println("Please enter number of columns: ("
+        ow.println(Game.resourceBundle.getString("NoOfColumn")+": ("
                 + BoardDimensions.MIN_NO_OF_COLUMNS
                 + "-"
                 + BoardDimensions.MAX_NO_OF_COLUMNS
                 + ")");
         int col = ir.getInt(BoardDimensions.MIN_NO_OF_COLUMNS, BoardDimensions.MAX_NO_OF_COLUMNS );
 
-        ow.println("Please enter number of rows: ("
+        ow.println(Game.resourceBundle.getString("NoOfRows")+": ("
                 + BoardDimensions.MIN_NO_OF_ROWS
                 + "-"
                 + BoardDimensions.MAX_NO_OF_ROWS
@@ -118,8 +118,13 @@ public class Match {
     }
 
     private void whoBegins() {
-        ow.println("Please select who begins (1 - Player1: " + playerList.get(0) +
-                   " , 2 - Player2: "+playerList.get(1)+ ")");
+        ow.println(Game.resourceBundle.getString("WhoBegins")
+                +" (1 - "
+                + Game.resourceBundle.getString("Player")
+                +"1: " + playerList.get(0)
+                + " , 2 - "
+                + Game.resourceBundle.getString("Player")
+                +"2: "+playerList.get(1)+ ")");
         int input;
         do {
             input = ir.getInt();
@@ -138,8 +143,12 @@ public class Match {
     }
 
     private void askUserForNewMove() {
-        ow.println("Now player: " + tour.currentPlayer + " move");
-        ow.println("Please enter id");
+        ow.println( Game.resourceBundle.getString("Player")
+                +" "
+                + tour.currentPlayer
+                + " "
+                + Game.resourceBundle.getString("move"));
+        ow.println(Game.resourceBundle.getString("EnterId"));
         int id = ir.getInt();
         Move move = new Move(tour.currentPlayer.getMark(),id);
         tour.setMove(move);
