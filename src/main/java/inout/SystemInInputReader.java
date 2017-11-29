@@ -23,7 +23,6 @@ public class SystemInInputReader implements InputReader {
                 i= Integer.parseInt(input);
                 repeat = false;
             } catch (NumberFormatException e) {
-                ow.println(Game.resourceBundle.getString("EnterANumber"));
                 repeat = true;
             }
         } while (repeat);
